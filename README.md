@@ -1,62 +1,166 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 📄 Documentação de Testes com Postman – MyFunds API
 
-## About Laravel
+## 🔐 Autenticação
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Use Laravel Sanctum:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Register
+**POST** `api/register`  
+**Body (JSON):**
+```json
+{
+  "name": "Edenilson",
+  "email": "eden@example.com",
+  "password": "password123",
+  "password_confirmation": "password123"
+}
+```
+**Resposta:**
+```json
+{
+  "message": "Usuário registrado com sucesso.",
+  "token": "1|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "user": {
+    "name": "Edenilson",
+    "email": "eden@example.com",
+    "created_at": "2025-05-06T02:01:37.000000Z",
+    "id": 5
+  }
+}
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Login
+**POST** `/api/login`  
+**Body (JSON):**
+```json
+{
+  "email": "user@example.com",
+  "password": "password"
+}
+```
+**Resposta:**
+```json
+{
+  "token": "seu_token_aqui"
+}
+```
+**OBS:** Use o token retornado em todas as próximas requisições como:
+```
+Authorization: Bearer seu_token_aqui
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 💰 1. Depósito
 
-## Laravel Sponsors
+**POST** `/api/deposit`  
+**Headers:**
+```
+Authorization: Bearer seu_token
+Accept: application/json
+Content-Type: application/json
+```
+**Body (JSON):**
+```json
+{
+  "amount": 150.00
+}
+```
+**Resposta:**
+```json
+{
+  "message": "Depósito realizado com sucesso.",
+  "transaction": {
+    "id": 1,
+    "receiver_id": 2,
+    "type": "deposit",
+    "amount": "150.00",
+    "status": "completed"
+  }
+}
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🔁 2. Transferência entre usuários
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+**POST** `/api/transfer`  
+**Body (JSON):**
+```json
+{
+  "receiver_id": 3,
+  "amount": 50.00,
+  "description": "Pagamento mensal"
+}
+```
+**Resposta:**
+```json
+{
+  "message": "Transferência realizada com sucesso.",
+  "transaction": {
+    "id": 2,
+    "sender_id": 2,
+    "receiver_id": 3,
+    "type": "transfer",
+    "amount": "50.00",
+    "status": "completed"
+  }
+}
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## ↩️ 3. Reversão de Transação
 
-## Code of Conduct
+**POST** `/api/reverse/2`  
+(onde `2` é o ID da transação a ser revertida)  
+**Body (JSON):**
+```json
+{
+  "reason": "Transação feita por engano"
+}
+```
+**Resposta:**
+```json
+{
+  "message": "Transação revertida com sucesso.",
+  "reversal": {
+    "id": 1,
+    "original_transaction_id": 2,
+    "reversed_by": 2,
+    "reason": "Transação feita por engano"
+  }
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## ↩️ 4. Todas transferencias
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**GET** `/api/transactions`  
 
-## License
+**Resposta:**
+```json
+{
+  "message": "Transação revertida com sucesso.",
+  "reversal": {
+    "id": 1,
+    "original_transaction_id": 2,
+    "reversed_by": 2,
+    "reason": "Transação feita por engano"
+  }
+}
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# MyFunds-laravel
+---
+
+## ❌ Exemplo de erro (saldo insuficiente)
+
+```json
+{
+  "message": "Saldo insuficiente."
+}
+```
