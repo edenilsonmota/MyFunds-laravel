@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Exception;
 
 class TransactionService
@@ -41,5 +42,20 @@ class TransactionService
                 'description' => $description,
             ]);
         });
+    }
+
+    /**
+     * Retorna as transações do usuário, tanto enviadas quanto recebidas.
+     *
+     * @param User $user
+     * @return LengthAwarePaginator
+     */
+    public function getUserTransactions(User $user): LengthAwarePaginator
+    {
+        return $user->sentTransactions()
+            ->orWhere('receiver_id', $user->id)
+            ->with(['sender', 'receiver', 'reversal'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
     }
 }
