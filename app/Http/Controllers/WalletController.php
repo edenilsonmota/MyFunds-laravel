@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Services\WalletService;
 use Illuminate\Http\Request;
 
+/**
+ * Class WalletController
+ * Controlador para gerenciar a carteira do usuário.
+ */
 class WalletController extends Controller
 {
     public function __construct(private WalletService $walletService) {}

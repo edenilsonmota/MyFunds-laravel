@@ -6,6 +6,10 @@ use App\Models\Transaction;
 use App\Services\TransactionReversalService;
 use Illuminate\Http\Request;
 
+/**
+ * Class TransactionReversalController
+ * Controlador para reverter transações.
+ */
 class TransactionReversalController extends Controller
 {
     public function __construct(private TransactionReversalService $reversalService) {}

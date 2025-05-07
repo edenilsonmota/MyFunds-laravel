@@ -5,20 +5,12 @@ use App\Models\User;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
 
+ /**
+ * Class Realiza a transferência de valores entre contas.
+*/
 class TransactionController extends Controller
 {
     public function __construct(private TransactionService $transactionService) {}
-
-    public function index()
-    {
-        $transactions = auth()->user()->sentTransactions()
-            ->orWhere('receiver_id', auth()->id())
-            ->with(['sender', 'receiver', 'reversal'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
-        return view('transactions.index', compact('transactions'));
-    }
 
     public function transfer(Request $request)
     {
