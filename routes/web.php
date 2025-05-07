@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionReversalController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,9 +11,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Rota para o Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::get('/check-user/{user_id}', function ($user_id) {
     // Verifica se o user_id existe
@@ -34,7 +36,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/deposit', [WalletController::class, 'deposit'])->name('wallet.deposit');
 
-    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::post('/transfer', [TransactionController::class, 'transfer'])->name('transaction.transfer'); // ← essa aqui
     Route::post('/reverse/{id}', [TransactionReversalController::class, 'reverse'])->name('transaction.reverse');
 });
