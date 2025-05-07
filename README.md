@@ -2,6 +2,9 @@
 # 📄 Documentação de Testes – MyFunds API
 
 ## Subindo aplicação:
+**Requisitos:**
+- Docker
+- Docker Compose
 
 **Criando o .env e copiando as informações do .env.example, atenção as credenciais do db:**
 (linux)
@@ -11,7 +14,7 @@ cp .env.example .env
 
 **Subir os containers:**
 ```
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 **Acessar o container PHP**
