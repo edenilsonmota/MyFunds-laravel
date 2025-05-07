@@ -4,7 +4,10 @@
 ## Subindo aplicação:
 
 **Criando o .env e copiando as informações do .env.example, atenção as credenciais do db:**
-
+(linux)
+```
+cp .env.example .env
+```
 
 **Subir os containers:**
 ```

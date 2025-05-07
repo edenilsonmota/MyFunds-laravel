@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY --from=node /app/public ./public
+
+# Copia todo o projeto (incluindo composer.json) antes do install
 COPY . .
 
-RUN composer install
+# Agora sim o composer install vai funcionar corretamente
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
