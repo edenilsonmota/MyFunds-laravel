@@ -1,5 +1,31 @@
 
-# 📄 Documentação de Testes com Postman – MyFunds API
+# 📄 Documentação de Testes – MyFunds API
+
+## Subindo aplicação:
+
+**Criando o .env e copiando as informações do .env.example, atenção as credenciais do db:**
+
+
+**Subir os containers:**
+```
+docker-compose up --build -d
+```
+
+**Acessar o container PHP**
+```
+docker exec -it laravel_app bash
+```
+
+**Dentro do container: rodar as migrations**
+```
+php artisan migrate
+```
+
+**Opcional: gerar a APP_KEY (caso não tenha no .env)**
+
+```
+php artisan key:generate
+```
 
 ## 🔐 Autenticação
 
