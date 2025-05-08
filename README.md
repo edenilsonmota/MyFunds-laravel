@@ -27,20 +27,11 @@ DB_PASSWORD=postgres
 docker compose up -d --build
 ```
 
-**Acessar o container PHP**
+**Instalar dependências, gerar app_key e rodar as migrations**
 ```
-docker exec -it myfunds-app bash
-```
-
-**Dentro do container: rodar as migrations**
-```
-php artisan migrate
-```
-
-**gerar a APP_KEY**
-
-```
-php artisan key:generate
+docker compose run --rm app composer install
+docker compose run --rm app php artisan key:generate
+docker compose run --rm app php artisan migrate
 ```
 
 ## 📄 Documentação de Testes – MyFunds API
