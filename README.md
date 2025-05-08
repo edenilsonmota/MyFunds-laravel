@@ -1,11 +1,11 @@
 
-# 📄 MyFunds
+# 📄 MyFunds - Projeto
 Sistema feito para um teste técnico.  
 MyFunds é uma API REST para controle de transações financeiras pessoais entre usuários, com funcionalidades como depósito, transferência e reversão de transações.
 
 ## 📚 Sumário
 
-- [📄 MyFunds](#-myfunds)
+- [📄 MyFunds - Projeto](#-myfunds---projeto)
   - [📚 Sumário](#-sumário)
   - [🛠️ Tecnologias utilizadas](#️-tecnologias-utilizadas)
   - [📸 Screenshots](#-screenshots)
@@ -20,6 +20,8 @@ MyFunds é uma API REST para controle de transações financeiras pessoais entre
     - [Credenciais do banco de dados:](#credenciais-do-banco-de-dados)
     - [Subir os containers:](#subir-os-containers)
     - [Instalar dependências, gerar app\_key e rodar as migrations:](#instalar-dependências-gerar-app_key-e-rodar-as-migrations)
+  - [📝 Instruções de Uso](#-instruções-de-uso)
+- [📄 MyFunds - API](#-myfunds---api)
   - [🔐 Autenticação](#-autenticação)
     - [Register](#register)
     - [Login](#login)
@@ -96,6 +98,31 @@ docker compose run --rm app composer install
 docker compose run --rm app php artisan key:generate
 docker compose run --rm app php artisan migrate
 ```
+
+## 📝 Instruções de Uso
+
+1. **Criação de Usuários**
+   - Acesse a tela de **Cadastro** em `/register`.
+   - Crie **dois usuários** diferentes.
+
+2. **Login**
+   - Acesse a tela de **Login** em `/login`.
+   - Realize o login com um dos usuários criados.
+
+3. **Depósito**
+   - Após fazer login, acesse a tela de **Dashboard** em `/dashboard`.
+   - Realize um **depósito** de um valor qualquer para o primeiro usuário.
+
+4. **Transferência**
+   - Na tela de **Dashboard**, faça a **transferência** do valor depositado para o **segundo usuário** utilizando o `id` (número da conta) do segundo usuário.
+
+5. **Reversão de Transferência**
+   - O **segundo usuário** pode acessar a tela de **reversão** e **reverter** a transferência, caso tenha sido feita por engano.
+
+
+# 📄 MyFunds - API
+
+Caso queria testar somente a api
 
 ## 🔐 Autenticação
 
