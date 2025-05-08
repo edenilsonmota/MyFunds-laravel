@@ -31,7 +31,6 @@ MyFunds é uma API REST para controle de transações financeiras pessoais entre
   - [📄 Licença](#-licença)
 
 
----
 
 ## 🛠️ Tecnologias utilizadas
 
@@ -41,7 +40,6 @@ MyFunds é uma API REST para controle de transações financeiras pessoais entre
 * Laravel Sanctum
 * Docker & Docker Compose
 
----
 
 ## 📸 Screenshots
 
@@ -98,8 +96,6 @@ docker compose run --rm app composer install
 docker compose run --rm app php artisan key:generate
 docker compose run --rm app php artisan migrate
 ```
-
----
 
 ## 🔐 Autenticação
 
@@ -160,8 +156,6 @@ A API utiliza **Laravel Sanctum** para autenticação via token.
 Authorization: Bearer seu_token_aqui
 ```
 
----
-
 ## 💰 1. Depósito
 
 **POST** `/api/deposit`
@@ -196,7 +190,6 @@ Content-Type: application/json
 }
 ```
 
----
 
 ## 🔁 2. Transferência entre usuários
 
@@ -228,8 +221,6 @@ Content-Type: application/json
 }
 ```
 
----
-
 ## ↩️ 3. Reversão de Transação
 
 **POST** `/api/reverse/2`
@@ -256,7 +247,6 @@ Content-Type: application/json
 }
 ```
 
----
 
 ## 📄 4. Todas transferências
 
@@ -286,7 +276,6 @@ Content-Type: application/json
 ]
 ```
 
----
 
 ## ❌ Exemplo de erro (saldo insuficiente)
 
