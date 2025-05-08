@@ -1,25 +1,35 @@
 
-# 📄 Documentação de Testes – MyFunds API
+# 📄 MyFunds
+Sistema feito para um teste tecnico.
 
 ## Subindo aplicação:
 **Requisitos:**
 - Docker
 - Docker Compose
 
-**Criando o .env e copiando as informações do .env.example, atenção as credenciais do db:**
+**Criando o .env e copiando as informações do .env.example:**
 (linux)
 ```
 cp .env.example .env
 ```
+**Credenciais do DB:**
+```
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_PORT=5432
+DB_DATABASE=postgres
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+```
 
 **Subir os containers:**
 ```
-docker compose up --build -d
+docker compose up -d --build
 ```
 
 **Acessar o container PHP**
 ```
-docker exec -it laravel_app bash
+docker exec -it myfunds-app bash
 ```
 
 **Dentro do container: rodar as migrations**
@@ -27,13 +37,14 @@ docker exec -it laravel_app bash
 php artisan migrate
 ```
 
-**Opcional: gerar a APP_KEY (caso não tenha no .env)**
+**gerar a APP_KEY**
 
 ```
 php artisan key:generate
 ```
 
-## 🔐 Autenticação
+## 📄 Documentação de Testes – MyFunds API
+### 🔐 Autenticação
 
 Use Laravel Sanctum:
 
@@ -84,8 +95,6 @@ Use Laravel Sanctum:
 Authorization: Bearer seu_token_aqui
 ```
 
----
-
 ## 💰 1. Depósito
 
 **POST** `/api/deposit`  
@@ -115,8 +124,6 @@ Content-Type: application/json
 }
 ```
 
----
-
 ## 🔁 2. Transferência entre usuários
 
 **POST** `/api/transfer`  
@@ -143,8 +150,6 @@ Content-Type: application/json
 }
 ```
 
----
-
 ## ↩️ 3. Reversão de Transação
 
 **POST** `/api/reverse/2`  
@@ -168,26 +173,14 @@ Content-Type: application/json
 }
 ```
 
----
-
 ## ↩️ 4. Todas transferencias
 
 **GET** `/api/transactions`  
 
 **Resposta:**
 ```json
-{
-  "message": "Transação revertida com sucesso.",
-  "reversal": {
-    "id": 1,
-    "original_transaction_id": 2,
-    "reversed_by": 2,
-    "reason": "Transação feita por engano"
-  }
-}
-```
 
----
+```
 
 ## ❌ Exemplo de erro (saldo insuficiente)
 
