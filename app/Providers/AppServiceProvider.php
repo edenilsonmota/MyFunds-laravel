@@ -22,15 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (
-            env('APP_ENV') === 'production' &&
-            (!app()->runningInConsole() || app()->runningUnitTests())
-        ) {
-            if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
-                URL::forceScheme('https');
-            }
+        // Forçar HTTPS nas URLs geradas
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
         }
 
+        // Observer
         User::observe(UserObserver::class);
     }
 }
