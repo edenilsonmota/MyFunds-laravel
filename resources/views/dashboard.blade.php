@@ -47,16 +47,16 @@
                     @csrf
 
                     {{-- Campo para digitar o ID do usuário --}}
-                    <input type="text" name="receiver_id" id="receiver_id" placeholder="Account number (ID)" class="border p-2 w-full rounded mb-2" required>
+                    <input type="text" name="receiver_id" id="receiver_id" placeholder="Account number (ID)" class="border p-2 w-full rounded mb-2 bg-gray-800 text-white" required>
 
                     {{-- Campo para digitar o valor da transferência --}}
-                    <input type="number" step="0.01" name="amount" placeholder="Value" class="border p-2 w-full rounded mb-2" required>
+                    <input type="number" step="0.01" name="amount" placeholder="Value" class="border p-2 w-full rounded mb-2 bg-gray-800 text-white" required>
 
                     {{-- Campo para a descrição da transferência (opcional) --}}
-                    <input type="text" name="description" placeholder="Description (optional)" class="border p-2 w-full rounded mb-2">
+                    <input type="text" name="description" placeholder="Description (optional)" class="border p-2 w-full rounded mb-2 bg-gray-800 text-white">
 
                     {{-- Exibe o nome do usuário ou mensagem de erro --}}
-                    <div id="receiver-info" class="mt-2 text-gray-600"></div>
+                    <div id="receiver-info" class="mt-2 text-white"></div>
 
                     {{-- Botão de submissão --}}
                     <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full mt-4">Transfer</button>
